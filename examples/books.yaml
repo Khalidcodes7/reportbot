@@ -1,0 +1,49 @@
+name: books-report
+
+start_urls:
+  - https://books.toscrape.com/catalogue/page-1.html
+
+item_selector: "css:article.product_pod"
+next_page: "css:li.next a"
+max_pages: 2
+
+fetch:
+  delay: 1.0
+  jitter: 0.4
+  timeout: 20
+  retries: 3
+  respect_robots: true
+
+fields:
+  - name: title
+    selector: "css:h3 a"
+    attr: title
+
+  - name: price
+    selector: "css:p.price_color"
+    transform: float
+
+  - name: rating
+    selector: "css:p.star-rating"
+    attr: class
+    regex: "star-rating (\\w+)"
+
+  - name: url
+    selector: "css:h3 a"
+    attr: href
+
+output:
+  path: output/books_report.xlsx
+  title: Books Report
+  chart_column: price
+
+email:
+  to: ""                       # leave blank to skip sending
+  subject: "Books report"
+  body: |
+    Hi,
+
+    Please find the latest books report attached.
+
+    Regards,
+    ReportBot
