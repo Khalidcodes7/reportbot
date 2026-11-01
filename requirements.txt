@@ -1,0 +1,6 @@
+requests>=2.31
+parsel>=1.8
+PyYAML>=6.0
+openpyxl>=3.1
+sendgrid>=6.11
+pandas>=2.0
